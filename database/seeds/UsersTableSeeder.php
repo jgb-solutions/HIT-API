@@ -9,6 +9,22 @@
     {
       User::truncate();
 
-      factory(User::class, 50)->create();
+      $users = [
+        [
+          'name' => 'Jean Gérard',
+          'email' => 'jgbneatdesign@gmail',
+          'password' => bcrypt('asdf,,,'),
+        ],
+        [
+          'name' => 'BeauChamps',
+          'email' => 'beauchamps@gmail',
+          'password' => bcrypt('password'),
+        ],
+      ];
+
+      foreach ($users as $user) {
+
+        User::create($user);
+      }
     }
   }

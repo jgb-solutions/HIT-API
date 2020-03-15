@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 
 $factory->define(News::class, function (Faker $faker) {
     return [
+        'hash' => News::makeHash(),
         'title' => $faker->name,
         'body' => $faker->text(),
         'date' => now(),
