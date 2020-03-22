@@ -17,6 +17,10 @@
 
     public function show($newsHash)
     {
-      return News::whereHash($newsHash)->firstOrFail();
+      $news = News::whereHash($newsHash)->firstOrFail()->toArray();
+
+      $news['randoms'] = News::inRandomOrder()->take(6)->get();
+
+      return $news;
     }
   }
