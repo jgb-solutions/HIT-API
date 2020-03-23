@@ -12,12 +12,12 @@
       $users = [
         [
           'name' => 'Jean Gérard',
-          'email' => 'jgbneatdesign@gmail',
+          'email' => 'jgbneatdesign@gmail.com',
           'password' => bcrypt('asdf,,,'),
         ],
         [
           'name' => 'BeauChamps',
-          'email' => 'beauchamps@gmail',
+          'email' => 'beauchamps@gmail.com',
           'password' => bcrypt('password'),
         ],
       ];
