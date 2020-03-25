@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use OneSignal;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,9 +13,52 @@ class AdminController extends Controller
       if (auth()->guest()) {
         return view('login');
       } else {
-        return view('login');
+        return view('admin', [
+          'news' => News::latest()->paginate(10)
+        ]);
       }
     }
+
+    public function createNews(Request $request)
+    {
+      $data = [
+        'hash' => News::makeHash()
+      ];
+
+      if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('images', 'wasabi');
+
+        $data['image'] = $path;
+      }
+
+      $request_data = $request->only('date', 'title', 'body', 'ads');
+
+      $news = News::create(array_merge($data, $request_data));
+
+      // handle notification
+      if ($request->shouldNotify) {
+        $this->push_send($news);
+      }
+
+      return redirect('/');
+    }
+
+  public function updateNews(Request $request, News $news)
+  {
+    $data = [];
+
+    if ($request->hasFile('image')) {
+      $path = $request->file('image')->store('images', 'wasabi');
+
+      $data['image'] = $path;
+    }
+
+    $request_data = $request->only('date', 'title', 'body', 'ads');
+
+    $news->update(array_merge($data, $request_data));
+
+    return redirect('/');
+  }
 
     public function login(Request $request)
     {
@@ -28,4 +73,24 @@ class AdminController extends Controller
 
       return redirect('/');
     }
+
+  public function deleteNews(News $news)
+  {
+    $news->delete();
+    return redirect('/');
+  }
+
+  public function push_send($news)
+  {
+    OneSignal::setParam('headings', ['en' => $news->title])
+      ->sendNotificationToAll(
+        strip_tags(explode("\n", $news->body)[0]),
+        $url = 'https://infotoutan.com/n/' . $news->hash,
+        $data = null,
+        $buttons = null,
+        $schedule = null
+      );
+
+    return redirect('/');
+  }
 }

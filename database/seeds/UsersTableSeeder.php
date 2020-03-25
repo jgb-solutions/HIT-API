@@ -17,8 +17,8 @@
         ],
         [
           'name' => 'BeauChamps',
-          'email' => 'beauchamps@gmail.com',
-          'password' => bcrypt('password'),
+          'email' => 'wendersonbeauchamps@gmail.com',
+          'password' => bcrypt('wolsybeauchamps509haiti'),
         ],
       ];
 
