@@ -77,7 +77,7 @@ class AdminController extends Controller
   public function deleteNews(News $news)
   {
     $news->delete();
-    return redirect('/');
+    return back();
   }
 
   public function push_send($news)

@@ -34,6 +34,7 @@
 
     public function getImageUrlAttribute()
     {
-      return 'https://files.infotoutan.com/' . $this->image;
+
+      return $this->image ? 'https://files.infotoutan.com/' . $this->image : null;
     }
   }
