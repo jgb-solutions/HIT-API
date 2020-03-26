@@ -7,7 +7,7 @@
                id="date"
                name="date"
                placeholder="Entrer la date et l'heure"
-               value="{{!empty($n) ? \Carbon\Carbon::parse($n->date)->format('Y-m-d\TH:i') : old('date')}}">
+               value="{{!empty($n) ? \Carbon\Carbon::parse($n->date)->format('Y-m-d\TH:i') : \Carbon\Carbon::now()->format('Y-m-d\TH:i')}}">
     </div>
     <div class="form-group col-6">
         <label for="image">Choisir Image</label>
