@@ -28,7 +28,7 @@
       setlocale(LC_TIME, 'fr_FR', 'fr', 'FR', 'French', 'fr_FR.UTF-8');
 //      Carbon::setLocale('fr'); // This is only needed to use ->diffForHumans()
 //      return Carbon::parse($date)->formatLocalized('%I:%M %p %r / %d %B %Y');
-      return Carbon::parse($this->date)->format('H:i A / d M Y');
+      return Carbon::parse($this->date)->format('h:i A / d M Y');
 //      return strftime("%A %e %B %Y", Carbon::parse($date)-();
     }
 
