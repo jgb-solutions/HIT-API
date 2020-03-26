@@ -12,7 +12,7 @@
     {
       $take = is_numeric($request->get('take')) ? $request->get('take'): 12;
 
-      return News::orderBy('created_at', 'desc')->paginate($take);
+      return News::orderBy('id', 'desc')->paginate($take, ['hash', 'image', 'title', 'date']);
     }
 
     public function show($newsHash)
