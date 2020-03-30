@@ -33,7 +33,6 @@
     <div class="form-group col-12">
         <label for="video_url">Lien YouTube</label>
         <input type="url"
-               required
                class="form-control"
                id="video_url"
                name="video_url"
