@@ -45,7 +45,7 @@
 
             @foreach($news as $n)
                 <tr>
-                    <td>{{ $n->title }}</td>
+                    <td><a href="{{ (App::environment('local') ? 'http://localhost:3000' : 'https://infotoutan.com')  . '/n/' . $n->hash }}" target="_blank">{{ $n->title }}</a></td>
                     <td>
                         <button class="btn btn-secondary" data-toggle="modal" data-target="#edit-news-{{$n->id}}">
                             <i class="fa fa-edit"></i>

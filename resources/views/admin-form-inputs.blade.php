@@ -31,6 +31,17 @@
     </div>
 
     <div class="form-group col-12">
+        <label for="video_url">Lien YouTube</label>
+        <input type="url"
+               required
+               class="form-control"
+               id="video_url"
+               name="video_url"
+               placeholder="Entrer le lien YouTube"
+               value="{{!empty($n) && !empty($n->video_id) ? 'https://www.youtube.com/watch?v=' . $n->video_id : ''}}">
+    </div>
+
+    <div class="form-group col-12">
         <label for="body">Contenu</label>
         <textarea class="form-control summernote"
                   required

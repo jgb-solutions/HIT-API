@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+  namespace App\Http\Controllers;
 
-use OneSignal;
-use App\Models\News;
-use Illuminate\Http\Request;
+  use OneSignal;
+  use App\Models\News;
+  use Illuminate\Http\Request;
 
-class AdminController extends Controller
-{
+  class AdminController extends Controller
+  {
     public function index()
     {
       if (auth()->guest()) {
         return view('login');
       } else {
         return view('admin', [
-          'news' => News::latest()->paginate(10)
+          'news' => News::latest()->paginate(10),
         ]);
       }
     }
@@ -22,7 +22,7 @@ class AdminController extends Controller
     public function createNews(Request $request)
     {
       $data = [
-        'hash' => News::makeHash()
+        'hash' => News::makeHash(),
       ];
 
       if ($request->hasFile('image')) {
@@ -32,6 +32,12 @@ class AdminController extends Controller
       }
 
       $request_data = $request->only('date', 'title', 'body', 'ads');
+
+      if ($request->video_url) {
+        parse_str(parse_url($request->video_url, PHP_URL_QUERY), $youtube_string_var);
+
+        $data['video_id'] = $youtube_string_var['v'];
+      }
 
       $news = News::create(array_merge($data, $request_data));
 
@@ -43,22 +49,28 @@ class AdminController extends Controller
       return redirect('/');
     }
 
-  public function updateNews(Request $request, News $news)
-  {
-    $data = [];
+    public function updateNews(Request $request, News $news)
+    {
+      $data = [];
 
-    if ($request->hasFile('image')) {
-      $path = $request->file('image')->store('images', 'wasabi');
+      if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('images', 'wasabi');
 
-      $data['image'] = $path;
+        $data['image'] = $path;
+      }
+
+      $request_data = $request->only('date', 'title', 'body', 'ads');
+
+      if ($request->video_url) {
+        parse_str(parse_url($request->video_url, PHP_URL_QUERY), $youtube_string_var);
+
+        $data['video_id'] = $youtube_string_var['v'];
+      }
+
+      $news->update(array_merge($data, $request_data));
+
+      return redirect('/');
     }
-
-    $request_data = $request->only('date', 'title', 'body', 'ads');
-
-    $news->update(array_merge($data, $request_data));
-
-    return redirect('/');
-  }
 
     public function login(Request $request)
     {
@@ -74,23 +86,24 @@ class AdminController extends Controller
       return redirect('/');
     }
 
-  public function deleteNews(News $news)
-  {
-    $news->delete();
-    return back();
-  }
+    public function deleteNews(News $news)
+    {
+      $news->delete();
 
-  public function push_send($news)
-  {
-    OneSignal::setParam('headings', ['en' => $news->title])
-      ->sendNotificationToAll(
-        strip_tags(explode("\n", $news->body)[0]),
-        $url = 'https://infotoutan.com/n/' . $news->hash,
-        $data = null,
-        $buttons = null,
-        $schedule = null
-      );
+      return back();
+    }
 
-    return redirect('/');
+    public function push_send($news)
+    {
+      OneSignal::setParam('headings', ['en' => $news->title])
+        ->sendNotificationToAll(
+          strip_tags(explode("\n", $news->body)[0]),
+          $url = 'https://infotoutan.com/n/' . $news->hash,
+          $data = null,
+          $buttons = null,
+          $schedule = null
+        );
+
+      return redirect('/');
+    }
   }
-}
