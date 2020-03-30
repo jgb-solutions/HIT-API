@@ -20,7 +20,7 @@
                value="{{!empty($n) ? $n->image : old('image')}}">
     </div>
     <div class="form-group col-12">
-        <label for="title">Title</label>
+        <label for="title">Titre</label>
         <input type="text"
                required
                class="form-control"
