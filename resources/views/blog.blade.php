@@ -36,6 +36,7 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/css/blog.css" rel="stylesheet">
+    <script data-ad-client="ca-pub-3793163111580068" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
 <div class="container">
