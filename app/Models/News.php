@@ -3,12 +3,14 @@
   namespace App\Models;
 
   use Carbon\Carbon;
-  use Illuminate\Support\Facades\Storage;
   use Illuminate\Support\Str;
   use Illuminate\Database\Eloquent\Model;
+  use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
   class News extends Model
   {
+    use Cachable;
+
     protected $hidden = ['id', 'created_at', 'updated_at', 'image', 'date'];
     protected $dates = ['date'];
     protected $guarded = [];
