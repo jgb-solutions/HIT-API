@@ -19,7 +19,7 @@
     {
       $news = News::whereHash($newsHash)->firstOrFail()->toArray();
 
-      $news['randoms'] = News::where('hash', '!=', $newsHash)->inRandomOrder()->take(6)->get();
+      $news['randoms'] = News::where('hash', '!=', $newsHash)->inRandomOrder()->take()->get();
 
       return $news;
     }
