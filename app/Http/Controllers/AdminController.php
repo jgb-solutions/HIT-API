@@ -5,6 +5,7 @@
   use OneSignal;
   use App\Models\News;
   use Illuminate\Http\Request;
+  use Illuminate\Support\Facades\Http;
 
   class AdminController extends Controller
   {
@@ -45,6 +46,9 @@
       if ($request->shouldNotify) {
         $this->push_send($news);
       }
+
+      // Rebuild Zeit deployment
+      Http::post('https://api.zeit.co/v1/integrations/deploy/QmdrnpbDDiBp7XoJvj5ZgvQYpdUGALdfPQRGbg7yQ3BHfS/zwSxHkj5ru');
 
       return redirect('/');
     }
