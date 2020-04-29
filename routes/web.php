@@ -16,6 +16,8 @@ Route::domain('web.' . $host_address)->group(function () {
   Route::delete('/delete-news/{news}', 'AdminController@deleteNews')->name('delete.news');
 
   Route::any('/logout', 'AdminController@logout')->name('logout');
+
+  Route::get('feed', 'FeedController');
 });
 
 //Route::domain('news.' . $host_address)->group(function() {

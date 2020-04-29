@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Haiti Info Toutan'),
+    'name' => env('APP_NAME', 'Haïti Info Toutan'),
 
     /*
     |--------------------------------------------------------------------------
