@@ -18,6 +18,6 @@ Route::domain('web.' . $host_address)->group(function () {
   Route::any('/logout', 'AdminController@logout')->name('logout');
 });
 
-Route::domain('news.' . $host_address)->group(function() {
-  Route::view('/', 'blog', ['posts' => \App\Models\News::orderBy('id', 'desc')->paginate(5)]);
-});
+//Route::domain('news.' . $host_address)->group(function() {
+//  Route::view('/', 'blog', ['posts' => \App\Models\News::orderBy('id', 'desc')->paginate(5)]);
+//});
