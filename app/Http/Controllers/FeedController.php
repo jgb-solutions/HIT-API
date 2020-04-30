@@ -23,7 +23,7 @@
     {
       // $key = $type . '_rss_feed_';
 
-      $allNews = News::orderBy('id', 'desc')->take(100)->get();
+      $allNews = News::orderBy('id', 'desc')->take(10)->get();
 
       $rss = $this->buildRssData($allNews);
 
