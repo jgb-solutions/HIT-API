@@ -48,7 +48,7 @@
       }
 
       // Rebuild Zeit deployment when news added
-      Http::post(config('services.zeit.deploy_hook'));
+      $this->zei_deploy_hook();
 
       return redirect('/');
     }
@@ -95,7 +95,7 @@
       $news->delete();
 
       // Rebuild Zeit deployment when news deleted
-      Http::post(config('services.zeit.deploy_hook'));
+      $this->zei_deploy_hook();
 
       return back();
     }
@@ -112,5 +112,10 @@
         );
 
       return redirect('/');
+    }
+
+    public function zei_deploy_hook()
+    {
+      Http::post(config('services.zeit.deploy_hook'));
     }
   }
