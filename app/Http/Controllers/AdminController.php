@@ -48,7 +48,7 @@
       }
 
       // Rebuild Zeit deployment when news added
-      Http::post('https://api.zeit.co/v1/integrations/deploy/QmdrnpbDDiBp7XoJvj5ZgvQYpdUGALdfPQRGbg7yQ3BHfS/zwSxHkj5ru');
+      Http::post(env('ZEIT_DEPLOY_HOOK'));
 
       return redirect('/');
     }
@@ -95,7 +95,7 @@
       $news->delete();
 
       // Rebuild Zeit deployment when news deleted
-      Http::post('https://api.zeit.co/v1/integrations/deploy/QmdrnpbDDiBp7XoJvj5ZgvQYpdUGALdfPQRGbg7yQ3BHfS/zwSxHkj5ru');
+      Http::post(env('ZEIT_DEPLOY_HOOK'));
 
       return back();
     }
