@@ -5,7 +5,6 @@
   use OneSignal;
   use App\Models\News;
   use Illuminate\Http\Request;
-  use Illuminate\Support\Facades\Http;
 
   class AdminController extends Controller
   {
@@ -46,9 +45,6 @@
       if ($request->shouldNotify) {
         $this->push_send($news);
       }
-
-      // Rebuild Zeit deployment when news added
-      $this->zei_deploy_hook();
 
       return redirect('/');
     }
@@ -94,9 +90,6 @@
     {
       $news->delete();
 
-      // Rebuild Zeit deployment when news deleted
-      $this->zei_deploy_hook();
-
       return back();
     }
 
@@ -112,10 +105,5 @@
         );
 
       return redirect('/');
-    }
-
-    public function zei_deploy_hook()
-    {
-      Http::post(config('services.zeit.deploy_hook'));
     }
   }
